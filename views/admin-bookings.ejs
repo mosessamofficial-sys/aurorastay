@@ -1,0 +1,59 @@
+<%- include('partials/header', { title: 'Admin – Bookings – AuroraStay' }) %>
+
+<section class="section">
+  <div class="container">
+    <header class="admin-header">
+      <h1>All bookings</h1>
+      <p class="subtitle">
+        Simple admin view to demonstrate backend integration and database usage.
+      </p>
+    </header>
+
+    <% if (bookings.length === 0) { %>
+      <div class="empty-state">
+        <h3>No bookings yet</h3>
+        <p>Make a booking from a hotel page and it will appear here.</p>
+      </div>
+    <% } else { %>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Guest</th>
+              <th>Hotel / Room</th>
+              <th>City</th>
+              <th>Check‑in</th>
+              <th>Check‑out</th>
+              <th>Guests</th>
+              <th>Created at</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% bookings.forEach(function(b) { %>
+              <tr>
+                <td><%= b.id %></td>
+                <td>
+                  <strong><%= b.guest_name %></strong><br />
+                  <span class="muted"><%= b.guest_email %></span>
+                </td>
+                <td>
+                  <strong><%= b.hotel_name %></strong><br />
+                  <span class="muted"><%= b.room_name %></span>
+                </td>
+                <td><%= b.city %></td>
+                <td><%= b.checkin_date %></td>
+                <td><%= b.checkout_date %></td>
+                <td><%= b.guests %></td>
+                <td><%= b.created_at %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+

@@ -1,0 +1,73 @@
+<%- include('partials/header', { title: 'AuroraStay – Find your perfect stay' }) %>
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <h1>Find your next unforgettable stay.</h1>
+      <p>
+        Discover hand‑picked hotels across India with stunning views, cozy interiors,
+        and seamless online booking.
+      </p>
+      <form class="search-card" action="/search" method="get">
+        <div class="field-group">
+          <label for="city">City</label>
+          <select id="city" name="city">
+            <option value="">Any city</option>
+            <% cities.forEach(function(c) { %>
+              <option value="<%= c.city %>"><%= c.city %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="checkin">Check‑in</label>
+          <input type="date" id="checkin" name="checkin" />
+        </div>
+        <div class="field-group">
+          <label for="checkout">Check‑out</label>
+          <input type="date" id="checkout" name="checkout" />
+        </div>
+        <div class="field-group">
+          <label for="guests">Guests</label>
+          <input type="number" id="guests" name="guests" min="1" value="2" />
+        </div>
+        <button class="btn-primary" type="submit">Search stays</button>
+      </form>
+      <div class="hero-badges">
+        <span>✔ Verified properties</span>
+        <span>✔ Instant booking</span>
+        <span>✔ Perfect for college demos</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card main"></div>
+      <div class="hero-card secondary"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Featured stays</h2>
+    <p class="section-subtitle">
+      A curated selection of high‑rated hotels for your next trip.
+    </p>
+    <div class="grid">
+      <% featuredHotels.forEach(function(hotel) { %>
+        <a href="/hotel/<%= hotel.id %>" class="hotel-card">
+          <div class="hotel-image" style="background-image: url('<%= hotel.image_url %>')"></div>
+          <div class="hotel-body">
+            <div class="hotel-meta">
+              <span class="pill"><%= hotel.city %></span>
+              <span class="rating">★ <%= hotel.rating.toFixed(1) %></span>
+            </div>
+            <h3><%= hotel.name %></h3>
+            <p><%= hotel.description %></p>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+

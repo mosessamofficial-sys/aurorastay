@@ -1,0 +1,91 @@
+<%- include('partials/header', { title: hotel.name + ' – AuroraStay' }) %>
+
+<section class="section">
+  <div class="container hotel-layout">
+    <div class="hotel-main">
+      <div class="hotel-hero-banner" style="background-image: url('<%= hotel.image_url %>')"></div>
+      <div class="hotel-main-body">
+        <h1><%= hotel.name %></h1>
+        <p class="hotel-location"><%= hotel.city %></p>
+        <p class="hotel-description"><%= hotel.description %></p>
+
+        <% if (errors && errors.length) { %>
+          <div class="empty-state" style="margin-top: 0.8rem; border-style: solid; border-color: rgba(239,68,68,0.6); background: rgba(30,64,175,0.4); text-align: left;">
+            <h3 style="margin-bottom: 0.4rem;">Please fix the following:</h3>
+            <ul style="margin: 0; padding-left: 1.1rem; font-size: 0.85rem; color: #fecaca;">
+              <% errors.forEach(function(err) { %>
+                <li><%= err %></li>
+              <% }) %>
+            </ul>
+          </div>
+        <% } %>
+
+        <h2 class="subheading">Available rooms</h2>
+        <div class="rooms-grid">
+          <% rooms.forEach(function(room) { %>
+            <div class="room-card">
+              <div
+                class="room-image"
+                style="background-image: url('<%= room.image_url %>')"
+              ></div>
+              <div class="room-body">
+                <h3><%= room.name %></h3>
+                <p class="room-meta">
+                  <span>₹<%= room.price_per_night.toFixed(0) %> / night</span>
+                  <span>Up to <%= room.capacity %> guests</span>
+                </p>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+
+    <aside class="booking-panel">
+      <h2>Book your stay</h2>
+      <form action="/book" method="post" class="booking-form">
+        <div class="field-group">
+          <label for="room_id">Room type</label>
+          <select id="room_id" name="room_id" required>
+            <% rooms.forEach(function(room) { %>
+              <option value="<%= room.id %>" <%= form && String(form.room_id) === String(room.id) ? 'selected' : '' %>>
+                <%= room.name %> – ₹<%= room.price_per_night.toFixed(0) %> / night
+              </option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="name">Full name</label>
+          <input type="text" id="name" name="name" value="<%= form && form.name ? form.name : '' %>" required />
+        </div>
+        <div class="field-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" value="<%= form && form.email ? form.email : '' %>" required />
+        </div>
+        <div class="field-group">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" value="<%= form && form.phone ? form.phone : '' %>" />
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label for="checkin">Check‑in</label>
+            <input type="date" id="checkin" name="checkin" value="<%= form && form.checkin ? form.checkin : '' %>" required />
+          </div>
+          <div class="field-group">
+            <label for="checkout">Check‑out</label>
+            <input type="date" id="checkout" name="checkout" value="<%= form && form.checkout ? form.checkout : '' %>" required />
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="guests">Guests</label>
+          <input type="number" id="guests" name="guests" min="1" value="<%= form && form.guests ? form.guests : 2 %>" required />
+        </div>
+        <button type="submit" class="btn-primary full-width">Confirm booking</button>
+        <p class="booking-note">No real payment is processed – demo only.</p>
+      </form>
+    </aside>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+

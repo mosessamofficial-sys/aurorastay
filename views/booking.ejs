@@ -1,0 +1,56 @@
+<%- include('partials/header', { title: 'Booking confirmed – AuroraStay' }) %>
+
+<section class="section">
+  <div class="container">
+    <div class="booking-confirm-card">
+      <div class="icon-circle">✓</div>
+      <h1>Your booking is confirmed!</h1>
+      <p class="subtitle">
+        Thank you, <strong><%= booking.guest_name %></strong>. A confirmation email will
+        be (pretend) sent to <strong><%= booking.guest_email %></strong>.
+      </p>
+
+      <div class="details-grid">
+        <div>
+          <h3>Hotel & room</h3>
+          <p><strong><%= booking.hotel_name %></strong></p>
+          <p><%= booking.city %></p>
+          <p>Room: <%= booking.room_name %></p>
+        </div>
+        <div>
+          <h3>Stay details</h3>
+          <p>
+            Check‑in:
+            <strong><%= booking.checkin_date %></strong>
+          </p>
+          <p>
+            Check‑out:
+            <strong><%= booking.checkout_date %></strong>
+          </p>
+          <p>
+            Guests:
+            <strong><%= booking.guests %></strong>
+          </p>
+          <p>
+            Nights:
+            <strong><%= nights %></strong>
+          </p>
+        </div>
+        <div>
+          <h3>Price estimate</h3>
+          <p>Per night: ₹<%= booking.price_per_night.toFixed(0) %></p>
+          <p>Total: ₹<%= totalEstimate.toFixed(0) %> (approx.)</p>
+          <p class="muted">No real payment logic implemented – estimate for display only.</p>
+        </div>
+      </div>
+
+      <div class="actions-row">
+        <a href="/" class="btn-secondary">Back to home</a>
+        <a href="/admin/bookings" class="btn-ghost">View all bookings (admin)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+
